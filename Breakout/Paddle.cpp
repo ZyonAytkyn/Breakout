@@ -33,6 +33,25 @@ void Paddle::moveRight(float dt)
     }
 }
 
+void Paddle::moveMouse(float dt)
+{
+    float position = _sprite.getPosition().x;
+
+    if (sf::Mouse::getPosition().x < position) {
+        if (position > 0) {
+            _sprite.move(sf::Vector2f(-dt * _mouseSpeed, 0));
+        }
+    }
+    if (sf::Mouse::getPosition().x > position) {
+        if (position < _window->getSize().x - _width) {
+            _sprite.move(sf::Vector2f(dt * _mouseSpeed, 0));
+        }
+    }
+    //else {
+       // _sprite.setPosition(sf::Vector2f(sf::Mouse::getPosition().x, 0));
+    //}
+}
+
 void Paddle::update(float dt)
 {
     if (_timeInNewSize > 0)

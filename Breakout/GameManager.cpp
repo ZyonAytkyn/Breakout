@@ -30,6 +30,27 @@ void GameManager::initialize()
 
 void GameManager::update(float dt)
 {
+
+    if (!setup) {
+        _pause = true;
+        _masterText.setString("Select input: 1 = Keyboard | 2 = Mouse");
+        _pauseHold = PAUSE_TIME_BUFFER;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+            //No change
+            _pause = false;
+            _masterText.setString("");
+            _pauseHold = PAUSE_TIME_BUFFER;
+            setup = true;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+            _isMouse = true;
+            _pause = false;
+            _masterText.setString("");
+            _pauseHold = PAUSE_TIME_BUFFER;
+            setup = true;
+        }
+    }
+
     _powerupInEffect = _powerupManager->getPowerupInEffect();
     _ui->updatePowerupText(_powerupInEffect);
     _powerupInEffect.second -= dt;
@@ -78,8 +99,13 @@ void GameManager::update(float dt)
     }
 
     // move paddle
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+    if (!_isMouse) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) _paddle->moveRight(dt);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) _paddle->moveLeft(dt);
+    }
+    else {
+        _paddle->moveMouse(dt);
+    }
 
     // update everything 
     _paddle->update(dt);
