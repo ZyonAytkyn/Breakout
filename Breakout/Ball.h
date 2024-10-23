@@ -17,12 +17,22 @@ public:
 
 private:
     sf::CircleShape _sprite;
+    sf::CircleShape _trail;
+    sf::CircleShape _trail2;
     sf::Vector2f _direction;
+    //sf::Vector2f _savedPos1 = sf::Vector2f(0, 0);
+   // sf::Vector2f _savedPos2 = sf::Vector2f(0, 0);;
+    //sf::Vector2f _savedPos3 = sf::Vector2f(0, 0);;
     sf::RenderWindow* _window;
     float _velocity;
     bool _isAlive;
     bool _isFireBall;
     float _timeWithPowerupEffect;
+    //float _savePos;
+    std::vector<sf::Vector2f> _savedPos{};
+    int trailCheck = 0;
+    int trailVecPos = 0;
+    int trail2VecPos = 0;
 
     GameManager* _gameManager;  // Reference to the GameManager
 

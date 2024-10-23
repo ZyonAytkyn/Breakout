@@ -8,6 +8,14 @@ Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     _sprite.setRadius(RADIUS);
     _sprite.setFillColor(sf::Color::Cyan);
     _sprite.setPosition(0, 300);
+
+    _trail.setRadius(RADIUS - 2);
+    _trail.setFillColor(sf::Color::Yellow);
+    _trail.setPosition(0, 300);
+
+    _trail2.setRadius(RADIUS - 4);
+    _trail2.setFillColor(sf::Color::Red);
+    _trail2.setPosition(0, 300);
 }
 
 Ball::~Ball()
@@ -46,6 +54,22 @@ void Ball::update(float dt)
     // check bounds and bounce
     sf::Vector2f position = _sprite.getPosition();
     sf::Vector2u windowDimensions = _window->getSize();
+
+
+    //Trail stuffs
+    _savedPos.push_back(position);
+
+    trailCheck++;
+
+    if (trailCheck > 100) {
+        _trail.setPosition(_savedPos[trailVecPos]);
+        trailVecPos++;
+    }
+
+    if (trailCheck > 200) {
+        _trail2.setPosition(_savedPos[trail2VecPos]);
+        trail2VecPos++;
+    }
 
     // bounce on walls
     if ((position.x >= windowDimensions.x - 2 * RADIUS && _direction.x > 0) || (position.x <= 0 && _direction.x < 0))
@@ -94,6 +118,8 @@ void Ball::update(float dt)
 
 void Ball::render()
 {
+    _window->draw(_trail2);
+    _window->draw(_trail);
     _window->draw(_sprite);
 }
 
