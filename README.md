@@ -32,4 +32,14 @@ fire ball (green)
 * Implement commentary with calls to an LLM such as LLama
 
 # Time Details and Changelist
-<Add information to this section about the time you've taken for this task along with a professional changelist.>
+Removed the include in PowerupBase.h preventing the game from launching.
+	Files Modified - PowerupBase.h
+	Time Spent - 40 mins
+
+Added in mouse controls for the paddle and the option to choose keyboard or mouse input.
+	Files Modififed - GameManager.cpp, GameManager.h, Paddle.cpp, Paddle.h
+	Time Spent - 50 mins
+
+Added a trail that follows behind the ball.
+	Files Modififed - Ball.cpp, Ball.h
+	Time Spent - 90 mins
